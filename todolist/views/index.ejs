@@ -10,7 +10,9 @@
     <p>Welcome to <%= title %></p>
     <ul>
     	<% listPerso.forEach(function(element){ %>
-        <li id="<%= element.id %>"><i class="fas fa-trash-alt" onclick="location.href = 'http://' + location.host + '/deleteTask'"></i><%= element.task %></li>
+      <% if (element) { %>
+        <li id="<%= element.id %>"><i class="fas fa-trash-alt" onclick='location.replace("/deleteTask?idTask=<%= element.id %>");'></i><%= element.task %></li>
+      <% } %>
       <% }); %>
     </ul>
     <h3>Ajouter une tâche</h3>

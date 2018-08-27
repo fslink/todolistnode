@@ -7,10 +7,13 @@ var list = require('../data/tasks.json');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var result = checkCookie(req, res);
+	console.log(result);
 	var listPerso = [];
 	list.forEach(function(element){
-		if(element.id == req.cookies.id){
-			listPerso.push(element);
+		if(element){
+			if(element.id == req.cookies.id){
+				listPerso.push(element);
+			}
 		}
 	});
 
@@ -20,7 +23,7 @@ router.get('/', function(req, res, next) {
 router.get('/addTask', function(req, res, next){
 	var result = checkCookie(req, res);
 	console.log(result);
-	if(req.query.task != undefined){
+	if(req.query.task){
 		result = addTaskJson(req.cookies.id, req.query.task);
 		console.log(result);
 	}
@@ -28,21 +31,28 @@ router.get('/addTask', function(req, res, next){
 });
 
 router.get('/deleteTask', function(req, res, next){
-	var listPerso = [];
+	var result = checkCookie(req, res);
 	list.forEach(function(element, index){
-		if(element.id == req.cookies.id){
-			delete list[index];
+		if(element){
+			console.log(element);
+			console.log(req.query.idTask);
+			if(element.id == req.query.idTask){
+				delete list[index];
+			}
 		}
 	});
+	var data = JSON.stringify(list);
+	fs.writeFileSync('./data/tasks.json', data);
+	res.redirect('/');
 });
 
 // add a task in tasks.json with the user id
 function addTaskJson(id, newTask){
 	try{
-		var row = {"id": id, "task": newTask} ;
+		var row = {"id": id, "task": newTask};
 		list.push(row);
 		var data = JSON.stringify(list);
-		fs.writeFile('./data/tasks.json', data);
+		fs.writeFileSync('./data/tasks.json', data);
 		return 'data added';
 
 	} catch(e){
