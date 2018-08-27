@@ -8,7 +8,9 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <ul>
-    	
+    	<% list.forEach(function(data){ %>
+      <li><%= data.id %> : <%= data.task %></li>
+      <% }); %>
     </ul>
     <form action="/addTask" methode="get">
     	<input type="text" name="task">
