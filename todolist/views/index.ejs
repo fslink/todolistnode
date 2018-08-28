@@ -7,10 +7,14 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <%= todolist %>
+    <p>Welcome to the <%= title %></p>
+    <ul>
+    <% todolist.forEach(function(element, index){ %>
+      <li><i class="fas fa-trash-alt"></i><%= element.task %></li>
+    <% }); %>
+    </ul>
     <h3>Ajouter une tâche</h3>
-    <form action="/addTask" methode="get">
+    <form action="/todo/ajouter" methode="post">
     	<input type="text" name="task">
     	<input type="submit">
     </form>
