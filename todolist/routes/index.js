@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	req.session.todolist.push({task: 'manger des fraises'});
 	res.send("Bienvenue sur la todo");
 })
 
