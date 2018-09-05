@@ -11,8 +11,17 @@ router.get('/', function(req, res, next) {
 })
 
 .post('/todo/ajouter', function(req, res, next){
-	req.session.todolist.push();
+	if(req.body.newtask != ''){
+		req.session.todolist.push(req.body.newtask);
+	}
+	res.redirect('/todo');
+})
 
+.get('/todo/supprimer/:id', function(req, res){
+	if(req.params.id != ''){
+		req.session.todolist.splice(req.params.id, 1);
+	}
+	res.redirect('/todo');
 })
 
 module.exports = router;

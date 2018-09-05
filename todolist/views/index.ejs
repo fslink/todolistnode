@@ -10,13 +10,18 @@
     <p>Welcome to the <%= title %></p>
     <ul>
     <% todolist.forEach(function(element, index){ %>
-      <li><i class="fas fa-trash-alt"></i><%= element.task %></li>
+      <li id="<%= index %>"><i class="fas fa-trash-alt" onclick="deleteTask(this)"></i><%= element %></li>
     <% }); %>
     </ul>
     <h3>Ajouter une tâche</h3>
-    <form action="/todo/ajouter" methode="post">
-    	<input type="text" name="task">
-    	<input type="submit">
+    <form action="/todo/ajouter" method="post">
+        <input type="text" name="newtask">
+        <input type="submit" value="Submit">
     </form>
+    <script type="text/javascript">
+      function deleteTask(element){
+        window.location.href = "/todo/supprimer/" + element.parentNode.id;
+      }
+    </script>
   </body>
 </html>

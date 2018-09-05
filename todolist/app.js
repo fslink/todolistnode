@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 
 var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
@@ -31,7 +30,9 @@ app.use(cookieSession({
         req.session.todolist = [];
     }
     next();
-});
+})
+
+.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 app.use(express.json());
